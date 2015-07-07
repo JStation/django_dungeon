@@ -14,7 +14,7 @@ class HomepageTest(TestCase):
 
         # and welcome message on page
         welcomeBox = self.browser.find_element_by_id('id_welcome_banner')
-        self.assertEqual(welcomeBox.text, 'Welcome to Django Dungeon!')
+        self.assertEqual(welcomeBox.text, 'Django Dungeon')
 
         # User closes browser
         self.browser.quit()
@@ -28,7 +28,7 @@ class HomepageTest(TestCase):
         # User notices that welcome banner is centered
         welcomeBox = self.browser.find_element_by_id('id_welcome_banner')
         self.assertAlmostEqual(
-            welcomeBox.location['x'] + inputbox.size['width']/2,
+            welcomeBox.location['x'] + welcomeBox.size['width']/2,
             512,
             delta=10
         )
