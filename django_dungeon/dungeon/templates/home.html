@@ -14,15 +14,26 @@
     <meta charset="UTF-8">
     <title>Django Dungeon</title>
 </head>
-<body>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 jumbotron">
                 <div class="text-center">
-                        <h1 id="id_welcome_header">Django Dungeon</h1>
+                    <h1 id="id_welcome_header">Django Dungeon</h1>
+                    <p id="id_welcome_description" class="lead">Create, play and share text adventures.</p>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Create a new adventure</h2>
+                <form method="POST">
+                    <input name="new_adventure_title" id="id_new_adventure_title" class="form-control input-lg" placeholder="Title of your new adventure"/>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

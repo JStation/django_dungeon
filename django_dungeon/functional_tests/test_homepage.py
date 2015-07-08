@@ -41,13 +41,13 @@ class NewVisitorTest(FunctionalTest):
         # User sees description of django dungeon below header
         # and learns that she can create and play text adventures
         description = self.browser.find_element_by_id("id_welcome_description")
-        self.assertIn("create and play text adventures", description.text)
+        self.assertIn("Create, play and share text adventures.", description.text)
 
         # She is invited to create a new adventure
-        inputbox = self.browser.find_element_by_id('id_new_adventure')
+        inputbox = self.browser.find_element_by_id('id_new_adventure_title')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Name of your new adventure'
+            'Title of your new adventure'
         )
 
         # She types "Haunted House Mystery" into text box
@@ -55,8 +55,8 @@ class NewVisitorTest(FunctionalTest):
 
         # When she hits enter she is redirected to a new page
         # that has the name of her adventure at the top
-        # TODO: Explicit wait here?
-        inputbox = self.browser.find_element_by_id('id_adventure_name')
+        self.wait_for_element_with_id('id_adventure_title') # Explicit wait (ie, redirected yet?)
+        inputbox = self.browser.find_element_by_id('id_adventure_title')
         self.assertEqual(inputbox.text, 'Haunted House Mystery')
 
         # She notices that the option 'Publish Adventure' is unchecked
@@ -67,7 +67,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.find_element_by_id('id_save_button').click()
 
         # And is redirected to a page containing a list of stories, with hers in the list
-        # TODO: explicit wait here?
+        self.wait_for_element_with_id('id_list_table') # Explicit wait
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('Haunted House Mystery', rows.text)
