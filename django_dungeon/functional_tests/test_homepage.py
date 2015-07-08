@@ -1,12 +1,11 @@
-from django.test import LiveServerTestCase
+from .base import FunctionalTest
 from selenium import webdriver
 
 
-class HomepageTest(LiveServerTestCase):
+class HomepageTest(FunctionalTest):
 
     def test_homepage_content(self):
         # User opens browser and navigates to url
-        self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
 
         # User notices site title in title bar
@@ -16,12 +15,9 @@ class HomepageTest(LiveServerTestCase):
         welcomeBox = self.browser.find_element_by_id('id_welcome_header')
         self.assertEqual(welcomeBox.text, 'Django Dungeon')
 
-        # User closes browser
-        self.browser.quit()
 
     def test_homepage_style(self):
         # User opens browser and navigates to url
-        self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)
 
@@ -36,12 +32,10 @@ class HomepageTest(LiveServerTestCase):
         # User closes browser
         self.browser.quit()
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(FunctionalTest):
 
     def test_can_create_an_adventure_and_retrieve_it_later(self):
         # User opens browser and navigates to url
-        # TODO: Refactor visiting code into helper or setUp function
-        self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
 
         # User sees description of django dungeon below header
@@ -73,6 +67,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.find_element_by_id('id_save_button').click()
 
         # And is redirected to a page containing a list of stories, with hers in the list
+        # TODO: explicit wait here?
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('Haunted House Mystery', rows.text)
