@@ -44,31 +44,35 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn("Create, play and share text adventures.", description.text)
 
         # She is invited to create a new adventure
-        inputbox = self.browser.find_element_by_id('id_new_adventure_title')
-        self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'Title of your new adventure'
-        )
+        new_adventure_header = self.browser.find_element_by_id("id_new_adventure_header")
+        self.assertIn("Start creating your own adventure", new_adventure_header.text)
 
-        # She types "Haunted House Mystery" into text box
-        inputbox.send_keys('Haunted House Mystery')
+        # She clicks the button to create a new adventure
+        with self.wait_for_page_load(self, timeout=10):
+            self.browser.find_element_by_tag_name('button').click()
 
-        # When she hits enter she is redirected to a new page
-        # that has the name of her adventure at the top
-        self.wait_for_element_with_id('id_adventure_title') # Explicit wait (ie, redirected yet?)
+        # This redirects her to a 'new adventure' page
+        self.assertEqual(self.browser.current_url, "test", "intentional fail, fix test")
+
+        # She types "Haunted House Mystery" into the "title" box
         inputbox = self.browser.find_element_by_id('id_adventure_title')
-        self.assertEqual(inputbox.text, 'Haunted House Mystery')
+        inputbox.send_keys('Haunted House Mystery')
 
         # She notices that the option 'Publish Adventure' is unchecked
         checkbox = self.browser.find_element_by_id('id_publish_checkbox')
         self.assertFalse(checkbox.is_selected(), "Publish checkbox is selected")
 
+        # She checks the button
+        checkbox.click()
+        self.assertTrue(checkbox.is_selected(), "Publish checkbox failed to select")
+
         # She clicks the 'save' button to save the adventure
         self.browser.find_element_by_id('id_save_button').click()
 
-        # And is redirected to a page containing a list of stories, with hers in the list
-        self.wait_for_element_with_id('id_list_table') # Explicit wait
-        table = self.browser.find_element_by_id('id_list_table')
+        # And is redirected to the homepage containing a list of "latest stories",
+        # with hers in the list
+        self.wait_for_element_with_id('id_adventure_table') # Explicit wait
+        table = self.browser.find_element_by_id('id_adventure_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('Haunted House Mystery', rows.text)
 

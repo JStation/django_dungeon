@@ -1,6 +1,8 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.expected_conditions import staleness_of
+from contextlib import contextmanager
 
 class FunctionalTest(LiveServerTestCase):
 
@@ -18,4 +20,12 @@ class FunctionalTest(LiveServerTestCase):
             'Could not find element with id {}. Page text was:\n{}'.format(
                 element_id, self.browser.find_element_by_tag_name('body').text
             )
+        )
+
+    @contextmanager
+    def wait_for_page_load(self, timeout=10):
+        old_page = self.browser.find_element_by_tag_name('html')
+        yield
+        WebDriverWait(self.browser, timeout).until(
+            staleness_of(old_page)
         )
