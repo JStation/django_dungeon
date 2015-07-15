@@ -1,5 +1,4 @@
 from .base import FunctionalTest
-from selenium import webdriver
 
 
 class HomepageTest(FunctionalTest):
@@ -45,14 +44,16 @@ class NewVisitorTest(FunctionalTest):
 
         # She is invited to create a new adventure
         new_adventure_header = self.browser.find_element_by_id("id_new_adventure_header")
-        self.assertIn("Start creating your own adventure", new_adventure_header.text)
+        self.assertIn("Create your own adventure", new_adventure_header.text)
 
         # She clicks the button to create a new adventure
-        with self.wait_for_page_load(self, timeout=10):
-            self.browser.find_element_by_tag_name('button').click()
+        with self.wait_for_page_load(timeout=10):
+            self.browser.find_element_by_id("id_new_adventure_button").click()
 
         # This redirects her to a 'new adventure' page
-        self.assertEqual(self.browser.current_url, "test", "intentional fail, fix test")
+        # that invites her to enter basic story info
+        header = self.browser.find_element_by_tag_name('h1')
+        self.assertEqual("New Adventure", header.text)
 
         # She types "Haunted House Mystery" into the "title" box
         inputbox = self.browser.find_element_by_id('id_adventure_title')
