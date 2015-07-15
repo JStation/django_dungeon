@@ -8,6 +8,7 @@ class NewAdventureForm(forms.Form):
         widget=forms.fields.TextInput(attrs={
             'placeholder': 'The Mysterious Quest',
             'class': 'form-control input-lg',
+            'id': 'id_adventure_title'
         }),
         error_messages={
             'required': 'Your adventure needs a title!'

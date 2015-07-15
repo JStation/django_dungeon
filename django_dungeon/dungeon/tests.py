@@ -26,6 +26,10 @@ class NewAdventurePageTest(TestCase):
         response = c.get('/new_adventure/')
         self.assertTemplateUsed(response, 'new_adventure.html')
 
+    def test_new_adventure_page_uses_new_adventure_form(self):
+        response = self.client.get('/new_adventure/')
+        self.assertIsInstance(response.context['form'], NewAdventureForm)
+
 class NewAdventureFormTest(TestCase):
 
     def test_form_renders_title_input_has_placeholder_and_css_classes(self):
