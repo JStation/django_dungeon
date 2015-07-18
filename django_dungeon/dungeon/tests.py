@@ -44,3 +44,12 @@ class NewAdventureFormTest(TestCase):
             form.errors['title'],
             ["Your adventure needs a title!"]
         )
+
+    def test_form_has_submit_button_with_correct_css_and_attributes(self):
+        # This test assumes the submit button is the first input added to FormHelper
+        form = NewAdventureForm()
+        print(form.helper.inputs[0].field_classes)
+        print(form.helper.inputs[0].id)
+        self.assertIn('btn-primary', form.helper.inputs[0].field_classes)
+        self.assertIn('id_save_button', form.helper.inputs[0].id)
+

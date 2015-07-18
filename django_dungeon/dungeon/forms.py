@@ -1,6 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 class NewAdventureForm(forms.Form):
     title = forms.CharField(
@@ -14,3 +15,7 @@ class NewAdventureForm(forms.Form):
             'required': 'Your adventure needs a title!'
         }
     )
+
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.add_input(Submit('create', 'create', css_class='btn-primary', css_id='id_save_button'))

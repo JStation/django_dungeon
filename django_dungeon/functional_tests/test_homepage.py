@@ -59,19 +59,25 @@ class NewVisitorTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('id_adventure_title')
         inputbox.send_keys('Haunted House Mystery')
 
-        # She notices that the option 'Publish Adventure' is unchecked
-        checkbox = self.browser.find_element_by_id('id_publish_checkbox')
-        self.assertFalse(checkbox.is_selected(), "Publish checkbox is selected")
-
-        # She checks the button
-        checkbox.click()
-        self.assertTrue(checkbox.is_selected(), "Publish checkbox failed to select")
-
         # She clicks the 'save' button to save the adventure
         self.browser.find_element_by_id('id_save_button').click()
 
-        # And is redirected to the homepage containing a list of "latest stories",
-        # with hers in the list
+        # And is redirected to the 'edit' adventure page with the first
+        # location of her new adventure loaded
+        self.fail("Add test for element id on edit page here (and a unit test for edit template)")
+
+
+        ### The publish checkbox should be on the 'edit' page, not 'new' page
+        ## She notices that the option 'Publish Adventure' is unchecked
+        # checkbox = self.browser.find_element_by_id('id_publish_checkbox')
+        # self.assertFalse(checkbox.is_selected(), "Publish checkbox is selected")
+
+        ## She checks the button
+        # checkbox.click()
+        # self.assertTrue(checkbox.is_selected(), "Publish checkbox failed to select")
+
+
+        # She returns to the homepage to see if her game is playable
         self.wait_for_element_with_id('id_adventure_table') # Explicit wait
         table = self.browser.find_element_by_id('id_adventure_table')
         rows = table.find_elements_by_tag_name('tr')
