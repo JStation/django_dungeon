@@ -1,20 +1,27 @@
-from django import forms
+from django.forms import ModelForm, TextInput, CharField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-class NewAdventureForm(forms.Form):
-    title = forms.CharField(
-        max_length=100,
-        widget=forms.fields.TextInput(attrs={
-            'placeholder': 'The Mysterious Quest',
-            'class': 'form-control input-lg',
-            'id': 'id_adventure_title'
-        }),
-        error_messages={
-            'required': 'Your adventure needs a title!'
+from .models import Adventure
+
+class NewAdventureForm(ModelForm):
+    class Meta:
+        model = Adventure
+        fields = ['title']
+        widgets = {
+            'title': TextInput(attrs={
+                'placeholder': 'The Mysterious Quest',
+                'class': 'form-control input-lg',
+                'id': 'id_adventure_title',
+            })
         }
-    )
+        error_messages = {
+            'title': {
+                'required': 'Your adventure needs a title!'
+            }
+        }
+
 
     helper = FormHelper()
     helper.form_method = 'POST'

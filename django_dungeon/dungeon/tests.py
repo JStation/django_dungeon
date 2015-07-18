@@ -3,6 +3,7 @@ from django.core.urlresolvers import resolve
 from django.http import HttpRequest
 from dungeon.views import home_page, new_adventure
 from dungeon.forms import NewAdventureForm
+from dungeon.models import Adventure
 
 class HomePageTest(TestCase):
 
@@ -30,6 +31,19 @@ class NewAdventurePageTest(TestCase):
         response = self.client.get('/new_adventure/')
         self.assertIsInstance(response.context['form'], NewAdventureForm)
 
+
+    def test_form_creates_new_adventure_on_post(self):
+        form = NewAdventureForm(data={'title': 'Test Adventure'})
+        response = self.client.post('/new_adventure/', {'form': form})
+        #self.assertEqual()
+
+
+    def test_form_redirects_after_posting_data(self):
+        form = NewAdventureForm(data={'title': 'Test Adventure'})
+        c = Client()
+        response = c.post('/new_adventure/', {'form': form})
+        self.assertRedirects(response, '/edit/')
+
 class NewAdventureFormTest(TestCase):
 
     def test_form_renders_title_input_has_placeholder_and_css_classes(self):
@@ -48,8 +62,20 @@ class NewAdventureFormTest(TestCase):
     def test_form_has_submit_button_with_correct_css_and_attributes(self):
         # This test assumes the submit button is the first input added to FormHelper
         form = NewAdventureForm()
-        print(form.helper.inputs[0].field_classes)
-        print(form.helper.inputs[0].id)
         self.assertIn('btn-primary', form.helper.inputs[0].field_classes)
         self.assertIn('id_save_button', form.helper.inputs[0].id)
 
+    def test_form_save(self):
+        form = NewAdventureForm(data={'title': 'Test Adventure'})
+        new_adventure = form.save()
+        print(Adventure.objects.all())
+        self.assertEqual(new_adventure, Adventure.objects.all()[0])
+
+
+
+
+class AdventureModelTest(TestCase):
+
+    def test_default_title(self):
+        adventure = Adventure()
+        self.assertEqual(adventure.title, '')
