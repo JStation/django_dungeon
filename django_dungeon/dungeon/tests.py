@@ -31,18 +31,10 @@ class NewAdventurePageTest(TestCase):
         response = self.client.get('/new_adventure/')
         self.assertIsInstance(response.context['form'], NewAdventureForm)
 
-
-    def test_form_creates_new_adventure_on_post(self):
-        form = NewAdventureForm(data={'title': 'Test Adventure'})
-        response = self.client.post('/new_adventure/', {'form': form})
-        #self.assertEqual()
-
-
     def test_form_redirects_after_posting_data(self):
-        form = NewAdventureForm(data={'title': 'Test Adventure'})
         c = Client()
-        response = c.post('/new_adventure/', {'form': form})
-        self.assertRedirects(response, '/edit/')
+        response = c.post('/new_adventure/', {'title': 'Testing Adventure'})
+        self.assertRedirects(response, '/edit/1/')
 
 class NewAdventureFormTest(TestCase):
 
@@ -83,4 +75,4 @@ class AdventureModelTest(TestCase):
     def test_get_absolute_url(self):
         form = NewAdventureForm(data={'title': 'A new adventure'})
         new_adventure = form.save()
-        self.assertEqual('1', new_adventure.get_absolute_url())
+        self.assertEqual('/edit/1/', new_adventure.get_absolute_url())
