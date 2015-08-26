@@ -13,3 +13,8 @@ def new_adventure(request):
         form = NewAdventureForm()
 
     return render(request, 'new_adventure.html', {'form': form})
+
+
+def edit_adventure(request):
+
+    return render(request, 'edit_adventure.html')

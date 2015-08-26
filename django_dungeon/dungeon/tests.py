@@ -79,3 +79,8 @@ class AdventureModelTest(TestCase):
     def test_default_title(self):
         adventure = Adventure()
         self.assertEqual(adventure.title, '')
+
+    def test_get_absolute_url(self):
+        form = NewAdventureForm(data={'title': 'A new adventure'})
+        new_adventure = form.save()
+        self.assertEqual('1', new_adventure.get_absolute_url())
