@@ -1,21 +1,5 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
+{% block body_content %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django Dungeon</title>
-</head>
-<body>
-
-</body>
-</html>
+{% endblock %}

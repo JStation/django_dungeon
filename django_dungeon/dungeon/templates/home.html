@@ -1,20 +1,6 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-<!-- todo: refactor bootstrap code into base.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django Dungeon</title>
-</head>
-<body>
+{% block body_content %}
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 jumbotron">
@@ -35,5 +21,4 @@
         </div>
 
     </div>
-</body>
-</html>
+{% endblock %}
