@@ -2,4 +2,20 @@
 
 {% block body_content %}
 {% load crispy_forms_tags %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 jumbotron">
+                <div class="text-center">
+                    <h1 id="id_edit_adventure_header">{{ adventure.title }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 id="id_location_name">PLACEHOLDER LOCATION NAME</h3>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
