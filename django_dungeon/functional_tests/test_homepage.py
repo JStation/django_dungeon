@@ -68,14 +68,10 @@ class NewVisitorTest(FunctionalTest):
         edit_adventure_header = self.browser.find_element_by_id('id_edit_adventure_header')
         self.assertIn("Haunted House Mystery", edit_adventure_header.text)
 
-        # the starting location has a default value...
-        location_name = self.browser.find_element_by_id('id_location_name')
-        self.assertEqual("Starting Location", location_name.text)
-
         # the initial description has a default value explaining how to edit
         location_description = self.browser.find_element_by_id('id_location_description')
-        default_description = "Players will begin the adventure in this room. To edit the title and description replace the text and click the 'save' button.\n\nChoices, which allow players to navigate the adventure, can be configured below. A room with no choices is considered an ending."
-        self.assertEqual(default_description, location_description.text)
+        default_description = "Players will begin the adventure in this room. To edit the description replace the text and click the 'save' button."
+        self.assertIn(default_description, location_description.text)
 
         # She clicks 'save and quit' to save the starting room as is
         self.browser.find_element_by_id('id_save_and_quit_button').click()
@@ -85,10 +81,6 @@ class NewVisitorTest(FunctionalTest):
         table = self.browser.find_element_by_id('id_adventure_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('Haunted House Mystery', rows.text)
-
-        # #####
-        self.fail('Finish the Functional Test')
-
 
 
     # Publish/Unpublish functionality

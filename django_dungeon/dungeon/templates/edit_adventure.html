@@ -13,9 +13,14 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3 id="id_location_name">PLACEHOLDER LOCATION NAME</h3>
+                    <textarea class="form-control" id="id_location_description" rows="10">Players will begin the adventure in this room. To edit the description replace the text and click the 'save' button. Choices, which allow players to navigate the adventure, can be configured below. A room with no choices is considered an ending.
+                    </textarea>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a href="http://localhost:8000" class="btn btn-default pull-right" id="id_save_and_quit_button">Save and Quit</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -76,3 +76,13 @@ class AdventureModelTest(TestCase):
         form = NewAdventureForm(data={'title': 'A new adventure'})
         new_adventure = form.save()
         self.assertEqual('/edit/1/', new_adventure.get_absolute_url())
+
+
+class HomePageViewTest(TestCase):
+
+    def test_view_returns_list_of_adventures(self):
+        a_title = "Test Adventure"
+        adventure_ = Adventure.objects.create(title=a_title)
+        response = self.client.get('/')
+        self.assertContains(response, a_title)
+
