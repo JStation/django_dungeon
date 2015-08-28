@@ -23,13 +23,11 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <table id="id_adventure_table" class="table">
-                    {% for adventure in adventure.item_set.all %}
-                        <tr><td>{{ forloop.counter }}: {{ adventure.title }}</td></tr>
+                    {% for adventure in adventures %}
+                        <tr><td>{{ adventure.title }}</td></tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
-    </div>
-
     </div>
 {% endblock %}

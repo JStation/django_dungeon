@@ -3,7 +3,8 @@ from dungeon.forms import NewAdventureForm
 from dungeon.models import Adventure
 
 def home_page(request):
-    return render(request, 'home.html')
+    adventures_ = Adventure.objects.all()
+    return render(request, 'home.html', {'adventures':adventures_})
 
 def new_adventure(request):
     if request.method == 'POST':

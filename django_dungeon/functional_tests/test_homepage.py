@@ -80,7 +80,8 @@ class NewVisitorTest(FunctionalTest):
         self.wait_for_element_with_id('id_adventure_table') # Explicit wait
         table = self.browser.find_element_by_id('id_adventure_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('Haunted House Mystery', rows.text)
+        row_text = [item.text for item in rows]
+        self.assertIn('Haunted House Mystery', row_text)
 
 
     # Publish/Unpublish functionality
