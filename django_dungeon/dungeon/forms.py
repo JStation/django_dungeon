@@ -18,7 +18,8 @@ class NewAdventureForm(ModelForm):
         }
         error_messages = {
             'title': {
-                'required': 'Your adventure needs a title!'
+                'required': 'Your adventure needs a title!',
+                'unique': 'There is already an adventure with this title!',
             }
         }
 

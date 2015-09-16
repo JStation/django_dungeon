@@ -19,6 +19,17 @@ class NewAdventureFormTest(TestCase):
             ["Your adventure needs a title!"]
         )
 
+    def test_form_validation_for_duplicate_title(self):
+        form1 = NewAdventureForm(data={'title': 'Adventure'})
+        form1.save()
+        form2 = NewAdventureForm(data={'title': 'Adventure'})
+        self.assertFalse(form2.is_valid())
+        self.assertEqual(
+            form2.errors['title'],
+            ["There is already an adventure with this title!"]
+        )
+
+
     def test_form_has_submit_button_with_correct_css_and_attributes(self):
         # This test assumes the submit button is the first input added to FormHelper
         form = NewAdventureForm()

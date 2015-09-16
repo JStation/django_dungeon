@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 class Adventure(models.Model):
-    title = models.CharField(max_length=100, default='')
+    title = models.CharField(max_length=100, default='', unique=True)
 
     def __str__(self):
         return self.title
